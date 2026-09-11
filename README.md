@@ -1,6 +1,6 @@
 # NOVA Car Radio
 
-Modern synchronized in-vehicle radio for FiveM with support for **NOVA Framework**, **QBCore**, **ESX Legacy**, and standalone servers.
+Modern synchronized in-vehicle radio for FiveM with support for **QBCore**, **ESX Legacy**, and standalone servers.
 
 ## Features
 
