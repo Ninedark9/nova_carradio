@@ -34,3 +34,6 @@ You only need **one** of the following:
 - Standalone mode
 
 The resource automatically detects the active framework.
+
+![NOVA CAR RADIO Preview](assets/nova_carradio.png)
+
