@@ -35,5 +35,5 @@ You only need **one** of the following:
 
 The resource automatically detects the active framework.
 
-![NOVA CAR RADIO Preview](assets/nova_carradio.png)
+![NOVA CAR RADIO Preview](nova_carradio.png)
 
