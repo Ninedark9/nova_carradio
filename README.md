@@ -34,11 +34,3 @@ You only need **one** of the following:
 - Standalone mode
 
 The resource automatically detects the active framework.
-
-## Installation
-
-1. Download `nova_carradio`.
-2. Place it in your FiveM `resources` folder.
-3. Install `oxmysql` and `olisound`.
-4. Start your framework before `nova_carradio`.
-5. Add the resources to `server.cfg`.
