@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>NOVA Car Radio</title>
+  <link rel="stylesheet" href="style-162.css">
+  <script src="https://w.soundcloud.com/player/api.js" defer></script>
+</head>
+<body>
+  <main id="app" class="app" hidden>
+    <section class="radio" role="dialog" aria-labelledby="radio-heading" aria-modal="true">
+      <header class="topbar">
+        <div class="brand"><div class="brand-mark" aria-hidden="true"><span></span><span></span><span></span><span></span></div><div><strong id="radio-heading">NOVA<span> / </span>AUDIO</strong></div></div>
+        <div class="vehicle-identity"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 7 2-4h10l2 4 2 3v8h-3v-2H6v2H3v-8l2-3Zm0 0h14M6 12h2m8 0h2"/></svg><div><strong id="vehicle-name">VEHICLE AUDIO</strong><span id="vehicle-plate">--------</span></div></div>
+        <div class="connection"><span class="status-dot"></span><span id="sync-state" role="status">READY</span></div>
+        <button id="close" class="icon-button close-button" aria-label="Close radio" title="Close - Esc"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg></button>
+      </header>
+      <div class="layout">
+        <section class="now-playing" aria-label="Player and audio controls">
+          <div class="player-eyebrow"><span class="eyebrow">01 / PLAYER</span><span class="playback-state"><i></i><span id="playback-status">STANDBY</span></span></div>
+          <div class="track-hero">
+            <div class="cover-wrap"><div id="cover" class="cover fallback"><div class="disc"><span></span></div></div><span id="provider" class="provider">NO SOURCE</span></div>
+            <div class="track-copy"><small>NOW PLAYING</small><h1 id="title">Find your frequency.</h1><p id="author">Add a track to start listening.</p><button id="favorite" class="favorite-button" disabled><span id="favorite-star">&#9734;</span><span id="favorite-label">Save to favorites</span></button></div>
+          </div>
+          <section class="spectrum-panel" aria-label="Audio visualization"><div class="spectrum-head"><span>THE SOUND OF YOUR DRIVE</span><span id="spectrum-mode">IDLE</span></div><canvas id="visualizer" width="760" height="130" aria-label="Audio spectrum"></canvas><div class="frequency-labels" aria-hidden="true"><span>60 Hz</span><span>250</span><span>1k</span><span>4k</span><span>16k Hz</span></div></section>
+          <div class="transport">
+            <button id="loop" class="transport-icon ghost" title="Loop current track" aria-label="Loop current track" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m17 2 4 4-4 4M3 11V9a3 3 0 0 1 3-3h15M7 22l-4-4 4-4m14-1v2a3 3 0 0 1-3 3H3"/></svg></button>
+            <div class="transport-main"><button id="previous" class="transport-icon" title="Previous track" aria-label="Previous track"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 5v14m12-14-9 7 9 7V5Z"/></svg></button><button id="toggle-play" class="transport-icon primary" title="Play" aria-label="Play"><span class="play-toggle-icon"></span></button><button id="next" class="transport-icon" title="Next track" aria-label="Next track"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 5v14M6 5l9 7-9 7V5Z"/></svg></button></div>
+            <button id="stop" class="transport-icon ghost danger" title="Stop playback" aria-label="Stop playback"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="2"/></svg></button>
+          </div>
+          <div class="timeline"><span id="time-current">0:00</span><input id="seek" class="range seek-range" type="range" min="0" max="1000" value="0" step="1" aria-label="Track position" disabled><span id="time-total">--:--</span></div>
+          <section class="volume-panel" aria-label="Vehicle volume"><div class="volume-title"><span class="volume-symbol"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m11 5-6 4H2v6h3l6 4V5Zm4 3a6 6 0 0 1 0 8m3-11a10 10 0 0 1 0 14"/></svg></span><div><small>MASTER OUTPUT</small><strong>Volume</strong></div><b id="volume-value">55%</b></div><div class="volume-controls"><button id="volume-down" class="volume-button" aria-label="Volume down"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/></svg></button><div class="volume-fader"><input id="volume" class="range volume-range" type="range" min="0" max="100" value="55" step="1" aria-label="Vehicle volume"><div class="fader-scale" aria-hidden="true"><span>0</span><span>25</span><span>50</span><span>75</span><span>100</span></div></div><button id="volume-up" class="volume-button" aria-label="Volume up"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button></div></section>
+          <section class="dj-panel"><div class="dj-head"><div class="mixer-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 3v9m0 4v5M12 3v3m0 4v11M19 3v12m0 4v2M2 12h6m1-6h6m1 9h6"/></svg><div><small>MAKE IT YOURS</small><strong>Sound studio</strong></div></div><span id="dj-status">FLAT</span></div><div class="dj-presets" aria-label="Sound presets"><button data-dj-preset="flat" class="dj-preset active">Original</button><button data-dj-preset="bass" class="dj-preset">Bass boost</button><button data-dj-preset="club" class="dj-preset">Club</button><button data-dj-preset="lofi" class="dj-preset">Lo-fi</button></div><div class="dj-grid">
+            <label class="dj-control" for="dj-bass"><span><b>Bass</b><em id="dj-bass-value">0%</em></span><input id="dj-bass" class="range" type="range" min="0" max="100" value="0"></label>
+            <label class="dj-control" for="dj-reverb"><span><b>Reverb</b><em id="dj-reverb-value">0%</em></span><input id="dj-reverb" class="range" type="range" min="0" max="100" value="0"></label>
+            <label class="dj-control" for="dj-distortion"><span><b>Drive</b><em id="dj-distortion-value">0%</em></span><input id="dj-distortion" class="range" type="range" min="0" max="100" value="0"></label>
+            <label class="dj-control" for="dj-tempo"><span><b>Tempo</b><em id="dj-tempo-value">100%</em></span><input id="dj-tempo" class="range tempo-range" type="range" min="75" max="125" value="100"></label>
+          </div><p class="dj-note">Everyone in range hears your mix. SoundCloud effects may be limited.</p></section>
+        </section>
+        <aside class="sidebar" aria-label="Music library">
+          <section class="source-box"><div class="section-title"><div><small>02 / YOUR COLLECTION</small><strong>What's next?</strong></div><span class="source-pill" id="source-type">AUTO</span></div><label class="url-field" for="url"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m10 13 4-4m-6 6-2 2a4 4 0 0 1-6-6l4-4a4 4 0 0 1 6 0m4 2 2-2a4 4 0 0 0-6-6l-2 2" transform="translate(3 2) scale(.85)"/></svg><input id="url" type="text" maxlength="700" autocomplete="off" spellcheck="false" placeholder="Paste a music link..." aria-label="Music link"><kbd>&crarr;</kbd></label><p class="source-hint">YouTube <i>&middot;</i> SoundCloud <i>&middot;</i> Direct audio</p><div class="source-actions"><button id="play-now" class="big-button primary"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 5 11 7-11 7V5Z" fill="currentColor" stroke="none"/></svg> Play now</button><button id="add-queue" class="big-button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg> Add to queue</button></div><div id="message" class="message" role="status" aria-live="polite" hidden></div></section>
+          <nav class="tabs" aria-label="Library sections"><button class="tab active" data-tab="queue">Up next <span id="queue-count">0</span></button><button class="tab" data-tab="favorites">Favorites</button><button class="tab" data-tab="playlists">Playlists</button><button class="tab" data-tab="history">History</button></nav>
+          <section class="library" aria-label="Saved music"><div id="list-queue" class="list active"></div><div id="list-favorites" class="list"></div><div id="list-history" class="list"></div>
+            <div id="list-playlists" class="list playlist-view">
+              <section class="playlist-create-card">
+                <div class="playlist-section-head"><div><small>NEW PLAYLIST</small><strong>Create playlist</strong></div></div>
+                <input id="playlist-name" aria-label="Playlist name" class="playlist-input" maxlength="60" placeholder="Playlist name">
+                <textarea id="playlist-links" aria-label="New playlist music links" class="playlist-textarea" rows="4" placeholder="Paste one link per line&#10;https://youtube.com/...&#10;https://soundcloud.com/..."></textarea>
+                <button id="playlist-create" class="big-button primary wide">CREATE PLAYLIST</button>
+              </section>
+
+              <section id="playlist-manager" class="playlist-manager" hidden>
+                <div class="playlist-manager-head">
+                  <div><small>SELECTED PLAYLIST</small><strong id="playlist-active-name">Playlist</strong><span id="playlist-active-count">0 tracks</span></div>
+                  <button id="playlist-close-manager" class="mini-icon" aria-label="Close playlist editor">×</button>
+                </div>
+                <div class="playlist-actions-grid">
+                  <button id="playlist-play-all" class="big-button primary">PLAY ALL</button>
+                  <button id="playlist-queue-all" class="big-button">QUEUE ALL</button>
+                </div>
+                <div class="playlist-rename-row">
+                  <input id="playlist-rename-name" aria-label="New playlist name" class="playlist-input" maxlength="60" placeholder="New name">
+                  <button id="playlist-rename" class="small-button">RENAME</button>
+                </div>
+                <textarea id="playlist-add-links" aria-label="Music links to add" class="playlist-textarea compact" rows="3" placeholder="Add more links — one per line"></textarea>
+                <button id="playlist-add" class="big-button wide">ADD LINKS</button>
+                <div id="playlist-track-list" class="playlist-track-list"></div>
+                <button id="playlist-delete" class="delete-playlist-button">DELETE PLAYLIST</button>
+              </section>
+
+              <section id="playlist-list" class="playlist-list"></section>
+            </div>
+          </section>
+          <div class="library-footer"><span class="status-dot"></span> One car. One shared soundtrack.</div>
+        </aside>
+      </div>
+      <footer class="bottom-bar"><div class="keyboard-hint"><kbd>ESC</kbd> Close player</div></footer>
+    </section>
+  </main>
+  <div id="soundcloud-engine" aria-hidden="true"></div>
+  <audio id="analysis-audio" crossorigin="anonymous" preload="none"></audio>
+  <script src="app-162.js"></script>
+</body>
+</html>
